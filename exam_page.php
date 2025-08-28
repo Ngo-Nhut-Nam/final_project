@@ -54,8 +54,8 @@ if (!isset($_SESSION['exam_start_time'])) {
 <head>
     <meta charset="UTF-8">
     <title>Bài kiểm tra trắc nghiệm</title>
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/exam_page.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="exam_page.css">
     </head>
     <body>
     <!-- Timer -->
@@ -231,7 +231,7 @@ if (!isset($_SESSION['exam_start_time'])) {
 
         <!-- JS đếm ngược -->
         <?php if ($_SERVER['REQUEST_METHOD'] != 'POST') { ?>
-        <script src="js/timer.js"></script>
+        <script src="timer.js"></script>
         <?php } ?>
     </body>
 </html>
