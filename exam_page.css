@@ -1,0 +1,102 @@
+    .QUESTION {
+        background: #f1f7ff;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        border-left: 5px solid #007bff;
+        transition: 0.2s;
+    }
+
+    .QUESTION:hover {
+        background: #e9f2ff;
+        transform: translateY(-2px);
+        box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+
+    .QUESTION b {
+        color: #007bff;
+        font-size: 16px;
+    }
+
+    .QUESTION textarea {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        margin-top: 10px;
+        resize: vertical;
+        font-size: 14px;
+        transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    .QUESTION textarea:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 8px rgba(0,123,255,0.3);
+        background: #fff;
+    }
+    
+    .question {
+        background: #f1f7ff;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        border-left: 5px solid #007bff;
+        transition: 0.2s;
+    }
+
+    .question:hover {
+        background: #e9f2ff;
+    }
+
+    .question b {
+        color: #007bff;
+        font-size: 16px;
+    }
+
+    .explain {
+        display: block;
+        margin-top: 5px;
+        padding: 8px;
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        border-radius: 5px;
+        font-style: italic;
+        font-weight: bold;
+        color: #05112c;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        margin-top: 10px;
+        resize: vertical;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    textarea:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0,123,255,0.3);
+    }
+
+
+    .correct { color: green; font-weight: bold; }
+    .wrong { color: red; font-weight: bold; }
+    .question { margin-bottom: 20px; }
+
+    #timer {
+        position: fixed;
+        top: 90px;
+        left: 20px;
+        background: #222;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        z-index: 9999;
+    }
