@@ -5,7 +5,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-include("config/db.php");
+include("db.php");
 
 // Danh sách bảng theo môn
 $tables = [
@@ -39,7 +39,7 @@ $tables = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hệ Thống Thi Trực Tuyến</title>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <!-- Header -->
@@ -354,9 +354,10 @@ $tables = [
         <p>&copy; 2025 Hệ Thống Thi Trực Tuyến. Tất cả quyền được bảo lưu.</p>
     </footer>
 
-    <script src="DTbase/index1.js"></script>
-    <script src="js/state.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/navigation.js"></script>
+    <script src="index1.js"></script>
+    <script src="state.js"></script>
+    <script src="utils.js"></script>
+    <script src="navigation.js"></script>
 </body>
 </html>
+
