@@ -40,7 +40,7 @@ if (!isset($_SESSION['user_id'])) {
             <div class="hero">
                 <h1>HỆ THỐNG THI TRỰC TUYẾN</h1>
                 <p>Nền tảng ôn luyện và thi cử trực tuyến dành cho học sinh, sinh viên</p>
-                <button class="btn btn-primary" href="exam_list.php">Bắt đầu ngay</button>
+                <a class="btn btn-primary" href="exam_list.php">Bắt đầu ngay</a>
             </div>
             
             <div class="features">
