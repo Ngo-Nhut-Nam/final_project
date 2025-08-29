@@ -24,6 +24,19 @@ function loadExams() {
         });
 }
 
+function filterExams() {
+    let filter = document.getElementById("subject-filter").value;
+    let exams = document.querySelectorAll(".exam-card"); 
+
+    exams.forEach(exam => {
+        if (filter === "all" || exam.dataset.subject === filter) {
+            exam.style.display = "block";
+        } else {
+            exam.style.display = "none";
+        }
+    });
+}
+
 // Sửa đề thi (hiện tại dùng file edit_exam.php trực tiếp)
 function editExam(id) {
     window.location.href = `edit_exam.php?id=${id}`;
@@ -46,3 +59,4 @@ function deleteExam(id) {
 
 // Khi trang load thì nạp danh sách đề thi
 window.onload = loadExams;
+
