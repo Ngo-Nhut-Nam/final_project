@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 // Lấy thông tin profile người dùng
-$sql_user = "SELECT username, email, phone FROM users WHERE id = ?";
+$sql_user = "SELECT USERNAME, EMAIL, PHONE FROM users WHERE id = ?";
 $stmt_user = $conn->prepare($sql_user);
 $stmt_user->bind_param("i", $user_id);
 $stmt_user->execute();
@@ -19,7 +19,7 @@ $user = $user_result->fetch_assoc();
 $stmt_user->close();
 
 // Lấy tất cả kết quả thi của user
-$sql = "SELECT * FROM exam_results WHERE user_id = ? ORDER BY created_at DESC";
+$sql = "SELECT * FROM results WHERE user_id = ? ORDER BY start_time DESC";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -31,7 +31,7 @@ $results = $stmt->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lịch sử làm bài</title>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/result.css">
 </head>
 <body>
 <header>
@@ -54,10 +54,10 @@ $results = $stmt->get_result();
     <section class="page active">
         <div class="result-container">
             <h2>Thông tin người dùng</h2>
-            <p><strong>Tên đăng nhập:</strong> <?php echo htmlspecialchars($user['username']); ?></p>
+            <p class="name_user"><strong>Tên đăng nhập:</strong> <?php echo htmlspecialchars($user['USERNAME']); ?></p>
 
             <hr>
-            <h2>Lịch sử làm bài</h2>
+            <h2 class="history_user">Lịch sử làm bài</h2>
             <?php if ($results->num_rows > 0): ?>
                 <table>
                     <tr>
@@ -70,17 +70,24 @@ $results = $stmt->get_result();
                     </tr>
                     <?php while ($row = $results->fetch_assoc()): ?>
                         <tr>
-                            <td><?php echo $row['created_at']; ?></td>
-                            <td><?php echo htmlspecialchars($row['exam_name']); ?></td>
-                            <td><?php echo $row['correct_answers']; ?></td>
-                            <td><?php echo $row['total_questions']; ?></td>
+                            <td><?php echo $row['start_time']; ?></td>
+                            <td><?php echo htmlspecialchars($row['subject']); ?></td>
+                            <td><?php echo $row['correct_answer']; ?></td>
+                            <td><?php echo $row['total_question']; ?></td>
                             <td><?php echo $row['score']; ?>/10</td>
                             <td>
                                 <?php 
-                                    $minutes = floor($row['time_spent'] / 60);
-                                    $seconds = $row['time_spent'] % 60;
+                                    $start = strtotime($row['start_time']);
+                                    $end = strtotime($row['end_time']);
+                                    $time = $end - $start;
+                                    $time_spent = max(0, $time);
+
+                                    $minutes = floor($time_spent / 60);
+                                    $seconds = $time_spent % 60;
+
                                     echo $minutes . " phút " . $seconds . " giây";
                                 ?>
+
                             </td>
                         </tr>
                     <?php endwhile; ?>
