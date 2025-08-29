@@ -5,7 +5,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-include("db.php");
+include("config/db.php");
 
 // Danh sách bảng theo môn
 $tables = [
@@ -39,7 +39,8 @@ $tables = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hệ Thống Thi Trực Tuyến</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/exam_list.css">
 </head>
 <body>
     <!-- Header -->
@@ -86,12 +87,18 @@ $tables = [
             <option value="English_10">Anh văn Lớp 10</option>
             <option value="English_11">Anh văn Lớp 11</option>
             <option value="English_12">Anh văn Lớp 12</option>
-        </select>
-    </div>
+            </select>
+
+            <select id="type-filter" class="type-filters" onchange="filterExams()">
+            <option value="all">Tất cả loại</option>
+            <option value="tracnghiem">Trắc nghiệm</option>
+            <option value="tuluan">Tự luận</option>
+            </select>
+        </div>
 
     <div class="exams-grid" id="exam-list">
         <!-- Card Toán -->
-        <div class="exam-card" data-subject="math">
+        <div class="exam-card" data-subject="math" data-type="tracnghiem">
             <div class="exam-header"><h3>Toán học - Kiểm tra </h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -104,7 +111,7 @@ $tables = [
         </div>
 
         <!-- Card Toán tự luận -->
-        <div class="exam-card" data-subject="math-TuLuan">
+        <div class="exam-card" data-subject="math" data-type="tuluan">
             <div class="exam-header"><h3>Toán học - Tự Luận</h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>20 câu</span></div>
@@ -117,7 +124,7 @@ $tables = [
         </div>
 
         <!-- Card Hóa -->
-        <div class="exam-card" data-subject="chemistry_8">
+        <div class="exam-card" data-subject="chemistry_8" data-type="tracnghiem">
             <div class="exam-header"><h3>Hóa Học - Lớp 8 </h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -129,7 +136,7 @@ $tables = [
             </div>
         </div>
 
-        <div class="exam-card" data-subject="chemistry_9">
+        <div class="exam-card" data-subject="chemistry_9" data-type="tracnghiem">
             <div class="exam-header"><h3>Hóa Học - Lớp 9 </h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -141,7 +148,7 @@ $tables = [
             </div>
         </div>
 
-        <div class="exam-card" data-subject="chemistry_10">
+        <div class="exam-card" data-subject="chemistry_10" data-type="tracnghiem">
             <div class="exam-header"><h3>Hóa Học - Lớp 10 </h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -153,7 +160,7 @@ $tables = [
             </div>
         </div>
 
-        <div class="exam-card" data-subject="chemistry_11">
+        <div class="exam-card" data-subject="chemistry_11" data-type="tracnghiem">
             <div class="exam-header"><h3>Hóa Học - Lớp 11 </h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -165,7 +172,7 @@ $tables = [
             </div>
         </div>
 
-        <div class="exam-card" data-subject="chemistry_12">
+        <div class="exam-card" data-subject="chemistry_12" data-type="tracnghiem">
             <div class="exam-header"><h3>Hóa Học - Lớp 12 </h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -178,7 +185,7 @@ $tables = [
         </div>
 
         <!-- Card Vật lý lớp 6 -->
-        <div class="exam-card" data-subject="physics_6">
+        <div class="exam-card" data-subject="physics_6" data-type="tracnghiem">
             <div class="exam-header"><h3>Vật lý - lớp 6</h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -190,7 +197,7 @@ $tables = [
             </div>
         </div>
 
-        <div class="exam-card" data-subject="physics_7">
+        <div class="exam-card" data-subject="physics_7" data-type="tracnghiem">
             <div class="exam-header"><h3>Vật lý - lớp 7</h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -202,7 +209,7 @@ $tables = [
             </div>
         </div>
 
-        <div class="exam-card" data-subject="physics_8">
+        <div class="exam-card" data-subject="physics_8" data-type="tracnghiem">
             <div class="exam-header"><h3>Vật lý - lớp 8</h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -214,7 +221,7 @@ $tables = [
             </div>
         </div>
 
-        <div class="exam-card" data-subject="physics_9">
+        <div class="exam-card" data-subject="physics_9" data-type="tracnghiem">
             <div class="exam-header"><h3>Vật lý - lớp 9</h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -226,7 +233,7 @@ $tables = [
             </div>
         </div>
 
-        <div class="exam-card" data-subject="physics_10">
+        <div class="exam-card" data-subject="physics_10" data-type="tracnghiem">
             <div class="exam-header"><h3>Vật lý - lớp 10</h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -238,7 +245,7 @@ $tables = [
             </div>
         </div>
 
-        <div class="exam-card" data-subject="physics_11">
+        <div class="exam-card" data-subject="physics_11" data-type="tracnghiem">
             <div class="exam-header"><h3>Vật lý - lớp 11</h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -250,7 +257,7 @@ $tables = [
             </div>
         </div>
 
-        <div class="exam-card" data-subject="physics_12">
+        <div class="exam-card" data-subject="physics_12" data-type="tracnghiem">
             <div class="exam-header"><h3>Vật lý - lớp 12</h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -264,7 +271,7 @@ $tables = [
 
 
         <!-- Card Tiếng Anh -->
-        <div class="exam-card" data-subject="English_6">
+        <div class="exam-card" data-subject="English_6" data-type="tracnghiem">
             <div class="exam-header"><h3>Anh Văn - lớp 6</h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -276,7 +283,7 @@ $tables = [
             </div>
         </div>
 
-        <div class="exam-card" data-subject="English_7">
+        <div class="exam-card" data-subject="English_7" data-type="tracnghiem">
             <div class="exam-header"><h3>Anh Văn - lớp 7</h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -288,7 +295,7 @@ $tables = [
             </div>
         </div>
 
-        <div class="exam-card" data-subject="English_8">
+        <div class="exam-card" data-subject="English_8" data-type="tracnghiem">
             <div class="exam-header"><h3>Anh Văn - lớp 8</h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -300,7 +307,7 @@ $tables = [
             </div>
         </div>
 
-        <div class="exam-card" data-subject="English_9">
+        <div class="exam-card" data-subject="English_9" data-type="tracnghiem">
             <div class="exam-header"><h3>Anh Văn - lớp 9</h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -312,7 +319,7 @@ $tables = [
             </div>
         </div>
 
-        <div class="exam-card" data-subject="English_10">
+        <div class="exam-card" data-subject="English_10" data-type="tracnghiem">
             <div class="exam-header"><h3>Anh Văn - lớp 10</h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -324,7 +331,7 @@ $tables = [
             </div>
         </div>
 
-        <div class="exam-card" data-subject="English_11">
+        <div class="exam-card" data-subject="English_11" data-type="tracnghiem">
             <div class="exam-header"><h3>Anh Văn - lớp 11</h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -336,7 +343,7 @@ $tables = [
             </div>
         </div>
 
-        <div class="exam-card" data-subject="English_12">
+        <div class="exam-card" data-subject="English_12" data-type="tracnghiem">
             <div class="exam-header"><h3>Anh Văn - lớp 12</h3></div>
             <div class="exam-body">
                 <div class="exam-info"><span>Số câu:</span><span>40 câu</span></div>
@@ -354,10 +361,10 @@ $tables = [
         <p>&copy; 2025 Hệ Thống Thi Trực Tuyến. Tất cả quyền được bảo lưu.</p>
     </footer>
 
-    <script src="index1.js"></script>
-    <script src="state.js"></script>
-    <script src="utils.js"></script>
-    <script src="navigation.js"></script>
+    <script src="DTbase/index1.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/exam_list.js"></script>
 </body>
 </html>
-
