@@ -1,0 +1,9 @@
+.form-container { max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; }
+        .form-group { margin-bottom: 15px; }
+        label { font-weight: bold; display: block; margin-bottom: 5px; }
+        input, select { width: 100%; padding: 8px; }
+        button { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        .btn-save { background: #007bff; color: white; }
+        .btn-save:hover { background: #0056b3; }
+        .btn-delete { background: #dc3545; color: white; margin-top: 10px; }
+        .btn-delete:hover { background: #a71d2a; }
